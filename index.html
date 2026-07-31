@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chhiring Wangdi Sherpa | Developer Portfolio</title>
+  <style>
+    :root {
+      --bg: #030712;
+      --panel: #080d18;
+      --panel-soft: #0f172a;
+      --text: #ffffff;
+      --muted: #b6c2d2;
+      --line: rgba(148, 163, 184, 0.18);
+      --accent: #2dd4bf;
+      --accent-strong: #2563eb;
+      --accent-soft: rgba(45, 212, 191, 0.12);
+      --blue-soft: rgba(37, 99, 235, 0.18);
+      --card: #0b1220;
+      --radius: 8px;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.46);
+      --soft-shadow: 0 20px 54px rgba(0, 0, 0, 0.32);
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        linear-gradient(115deg, rgba(37, 99, 235, 0.14), transparent 26%),
+        linear-gradient(245deg, rgba(45, 212, 191, 0.1), transparent 24%),
+        linear-gradient(180deg, #030712 0%, #07111f 45%, #030712 100%);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, #000, transparent 70%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3, 7, 18, 0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+      flex-wrap: wrap;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .nav-links a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    main {
+      min-height: 100vh;
+    }
+
+    .hero {
+      min-height: auto;
+      display: block;
+      padding: 104px 0 62px;
+    }
+
+    .hero > div {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(34px, 6vw, 72px);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(45, 212, 191, 0.14), transparent 28%),
+        linear-gradient(225deg, rgba(37, 99, 235, 0.18), transparent 34%),
+        linear-gradient(180deg, rgba(8, 13, 24, 0.96), rgba(15, 23, 42, 0.78));
+      box-shadow: var(--shadow);
+    }
+
+    .hero > div::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.9), rgba(37, 99, 235, 0.7), transparent);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin-bottom: 22px;
+      color: var(--text);
+      font-size: clamp(3.2rem, 8.6vw, 7.6rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .lead {
+      position: relative;
+      z-index: 1;
+      max-width: 710px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+    }
+
+    .actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.055);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.26);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 12px 28px rgba(45, 212, 191, 0.12);
+    }
+
+    .button.primary:hover {
+      background: linear-gradient(135deg, #7dd3fc, #2563eb);
+    }
+
+    .profile-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(8, 13, 24, 0.98));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      align-self: start;
+    }
+
+    .profile-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .profile-meta {
+      padding: 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .profile-meta strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.16rem;
+    }
+
+    .profile-meta span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .summary-item,
+    .about-card,
+    .card,
+    .timeline-item,
+    .contact-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.028)),
+        rgba(8, 13, 24, 0.82);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+    }
+
+    .summary-item {
+      min-height: 108px;
+      padding: 20px;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .summary-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      background:
+        linear-gradient(180deg, rgba(45, 212, 191, 0.08), rgba(255, 255, 255, 0.035)),
+        rgba(8, 13, 24, 0.94);
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .summary-item span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    section {
+      padding: 78px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      color: var(--text);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .about-profile {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .about-card {
+      padding: 32px;
+      background:
+        linear-gradient(135deg, rgba(45, 212, 191, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(8, 13, 24, 0.94), rgba(15, 23, 42, 0.78));
+      box-shadow: var(--soft-shadow);
+    }
+
+    .about-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .about-card p {
+      margin-bottom: 18px;
+      color: var(--muted);
+    }
+
+    .about-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .about-list li {
+      padding: 12px 13px;
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 12px;
+      color: #ccfbf1;
+      background: rgba(45, 212, 191, 0.08);
+      font-size: 0.94rem;
+    }
+
+    .project-grid,
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 244px;
+      padding: 24px;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong), transparent);
+      opacity: 0.75;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      background:
+        linear-gradient(180deg, rgba(45, 212, 191, 0.07), rgba(255, 255, 255, 0.03)),
+        rgba(8, 13, 24, 0.96);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 999px;
+      color: #ccfbf1;
+      background: rgba(45, 212, 191, 0.09);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .skill-list {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .skill-list li {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 24px;
+      padding: 24px;
+    }
+
+    .timeline-date {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .timeline-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      padding: 26px;
+      background:
+        linear-gradient(135deg, rgba(45, 212, 191, 0.12), transparent 30%),
+        linear-gradient(225deg, rgba(37, 99, 235, 0.14), transparent 30%),
+        rgba(8, 13, 24, 0.9);
+    }
+
+    .contact-panel p {
+      margin-bottom: 14px;
+      color: var(--muted);
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 8px;
+    }
+
+    .contact-detail {
+      width: fit-content;
+      max-width: 100%;
+      color: #e0f2fe;
+      font-size: 0.98rem;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+      transition: color 160ms ease;
+    }
+
+    .contact-detail:hover {
+      color: var(--accent);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .contact-popup {
+      min-height: 24px;
+      margin-top: 12px;
+      color: #ccfbf1;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-popup:empty {
+      display: none;
+    }
+
+    footer {
+      padding: 28px 0 44px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      nav,
+      .hero,
+      .section-head,
+      .about-profile,
+      .timeline-item,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .nav-links,
+      .contact-links {
+        justify-content: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        border-radius: 18px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 52px;
+      }
+
+      .summary-strip,
+      .project-grid,
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 15vw, 4rem);
+      }
+
+      .summary-strip,
+      .project-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card img {
+        aspect-ratio: 1 / 1.08;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="shell" aria-label="Primary navigation">
+      <a class="brand" href="#home">Chhiring Wangdi Sherpa</a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero shell">
+      <div>
+        <p class="eyebrow">Computer Science Student</p>
+        <h1>Chhiring Wangdi Sherpa</h1>
+        <p class="lead">
+          I build practical software tools for organizing data, tracking records, and turning
+          everyday workflows into clear technical systems.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#projects">View Projects</a>
+          <a class="button" href="https://github.com/Chhiring12" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button" href="./resume.html">Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="shell">
+        <div class="section-head">
+          <h2>About</h2>
+        </div>
+        <div class="about-profile">
+          <article class="about-card">
+            <h3>Professional Summary</h3>
+            <p>
+              I am a Computer Science student interested in building reliable tools that make
+              information easier to track, review, and explain. My work combines programming,
+              data handling, documentation, and clear communication.
+            </p>
+            <ul class="about-list">
+              <li>Practical software projects in Java, Python, and SQL.</li>
+              <li>Comfortable explaining technical steps clearly to users.</li>
+              <li>Organized, detail-focused, and comfortable with documentation.</li>
+            </ul>
+          </article>
+          <aside class="profile-card" aria-label="Profile photo">
+            <img src="profile-photo.jpg" alt="Portrait of Chhiring Wangdi Sherpa" />
+            <div class="profile-meta">
+              <strong>Chhiring Wangdi Sherpa</strong>
+              <span>Developer Portfolio</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell">
+      <div class="summary-strip">
+        <div class="summary-item">
+          <strong>Education</strong>
+          <span>B.S. Computer Science, Hunter College</span>
+        </div>
+        <div class="summary-item">
+          <strong>Projects</strong>
+          <span>FreshTrack, BudgetWise, and AuditLogic</span>
+        </div>
+        <div class="summary-item">
+          <strong>Languages</strong>
+          <span>English, Nepali, and conversational Hindi</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="projects">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Projects</h2>
+        </div>
+        <div class="project-grid">
+          <article class="card">
+            <h3>FreshTrack</h3>
+            <p>
+              Inventory and order tracking application for managing products, customer orders,
+              stock updates, and low-stock visibility.
+            </p>
+            <div class="tags">
+              <span class="tag">Java</span>
+              <span class="tag">CSV</span>
+              <span class="tag">Inventory</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>BudgetWise</h3>
+            <p>
+              Personal finance analyzer that groups transactions, compares spending with monthly
+              limits, and prepares readable summary reports.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Reports</span>
+              <span class="tag">Finance</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>AuditLogic</h3>
+            <p>
+              Audit-style data project for reviewing records, identifying issues, and improving
+              confidence in digital information.
+            </p>
+            <div class="tags">
+              <span class="tag">SQL</span>
+              <span class="tag">Data</span>
+              <span class="tag">Audit</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Skills</h2>
+        </div>
+        <div class="skills-grid">
+          <article class="card">
+            <h3>Languages</h3>
+            <ul class="skill-list">
+              <li>Python</li>
+              <li>Java</li>
+              <li>C++</li>
+              <li>SQL</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Tools</h3>
+            <ul class="skill-list">
+              <li>Git</li>
+              <li>Microsoft Excel</li>
+              <li>Word</li>
+              <li>PowerPoint</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Communication</h3>
+            <ul class="skill-list">
+              <li>English</li>
+              <li>Nepali</li>
+              <li>Hindi</li>
+              <li>Technical support</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Experience</h2>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-date">Sep 2021 - Dec 2022</div>
+            <div>
+              <h3>Peer Advisor - Little Angels' College</h3>
+              <p>
+                Assisted students with academic systems, course selection, tutoring resources,
+                scholarship information, workshops, and orientation support.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="shell">
+        <div class="contact-panel">
+          <div>
+            <h2>Contact</h2>
+            <p>Open to technical support, domain support, and entry-level software opportunities.</p>
+            <div class="contact-popup" id="contactPopup" aria-live="polite"></div>
+          </div>
+          <div class="contact-links">
+            <button class="button primary" type="button" id="emailButton">Email</button>
+            <a class="button" href="https://www.linkedin.com/in/chhiring-sherpa-60789526b" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <p>© 2026 Chhiring Wangdi Sherpa.</p>
+    </div>
+  </footer>
+  <script>
+    const emailButton = document.getElementById("emailButton");
+    const contactPopup = document.getElementById("contactPopup");
+
+    emailButton.addEventListener("click", () => {
+      contactPopup.textContent = "sherpawangdi83@gmail.com";
+    });
+  </script>
+</body>
+</html>
